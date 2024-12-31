@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sly - Calculadora</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="calculadora.css">
+</head>
+<body>
+  <header>
+    <div class="menu-toggle" id="menu-btn">☰</div>
+    <div class="sidebar" id="sidebar">
+      <div class="close-btn" id="close-btn">×</div>
+      <nav>
+        <ul>
+          <li><a href="resumen.html">Recursos Adicionales</a></li>
+          <li><a href="perfil.html">Datos Personales</a></li>
+          <li><a href="login.html">Cerrar sesión</a></li>
+      </ul>
+      </nav>
+    </div>
+    <h1>Calculadora</h1>
+    <p></p>
+  </header>
+
+  <main>
+    <h2 class="a">Calculadora de Préstamos</h2>
+    <p class="p">Nota:</p>
+    <p class="p">1. Los prestamos seran entre 1 a 12 meses</p>
+    <p class="p">2. El monto de prestamos es entre $50,00 a $1.000,00</p>
+    <p class="p">3. Cada prestamo tiene 5 dias de gracia, luego deberan pagar un 1% extra por demora</p>
+  
+      <form id="form-calculadora" class="caja">
+        <div class="caja1">
+          <label for="monto" class="c2">Monto a prestar:</label>
+          <label for="meses" class="c2">Meses:</label>
+          <label class="c2">Presionar en:</label>
+          <label class="c2">Interés:</label>
+          <label class="c2">Total a pagar:</label>
+          <label class="c2">Cuota mensual:</label>
+
+        </div>
+        <div class="caja1">
+          <input class="c2 input" type="number" id="monto" name="monto" placeholder="Ej. $500" required>
+          <input class="c2 input" type="number" id="meses" name="meses" placeholder="Ej. 6 meses" required>
+          <input type="submit" class="c2 input" value="Calcular">
+          <input class="c2 input" type="number" id="interes" readonly>
+          <input class="c2 input" type="number" id="total-pagar" readonly>
+          <input class="c2 input" type="number" id="cuota-mensual" readonly>
+        </div>  
+        </form>
+  </main>
+  <div class="footer">
+    <a class="icon" href="resumen.html"><i class="fa fa-trophy"></i>Ranking</a>
+    <a class="icon" href="calculadora.html"><i class="fa fa-calculator"></i>Calculadora</a>
+    <a class="icon" href="documentacion.html"><i class="fa fa-file-alt"></i>Documentación</a>
+    <a class="icon" href="aprender.html"><i class="fa fa-book-open"></i>Aprender</a>
+    <a class="icon" href="encuestas.html"><i class="fa fa-poll"></i>Encuestas</a>
+  </div>
+
+  <script src="calculadora.js"></script>
+</body>
+</html>

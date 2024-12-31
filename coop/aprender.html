@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sly - Inicio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="aprender.css">
+</head>
+<body>
+  <header>
+    <div class="menu-toggle" id="menu-btn">☰</div>
+    <div class="sidebar" id="sidebar">
+      <div class="close-btn" id="close-btn">×</div>
+      <nav>
+        <ul>
+            <li><a href="resumen.html">Recursos Adicionales</a></li>
+            <li><a href="perfil.html">Datos Personales</a></li>
+            <li><a href="login.html">Cerrar sesión</a></li>
+        </ul>
+      </nav>
+    </div>
+    <h1>Sly</h1>
+    <p></p>
+  </header>
+
+  <main>
+    <section>
+      <h2>Inicio de Sesión</h2>
+      <p>Para tener una cuenta, deberan comunicarse al número que se muestra ahí:</p>
+      <ul>
+          <li>Una vez que tengan su cuenta, en el primer campo va el numero de cuenta.</li>
+          <li>En el segundo campo, va su contraseña.</li>
+          <li>Se comprobara que sus datos ingresados son correctos, al dar click en iniciar sesión.</li>
+      </ul>
+      <div class="example">
+          <strong>Nota:</strong> Una vez que hayan ingresado por primera vez, cambiar la contraseña por tema de seguridad.
+      </div>
+      <div class="img">
+        <img src="img/login.jpg" alt="">
+      </div>
+    </section>
+
+    <section>
+      <h2>Perfil</h2>
+      <p>Para empezar daremos a entender las posibles datos que se le mostraran:</p>
+      <ul>
+        <li><strong>Número de Cuenta:</strong> Es su identificador unico como miembro en la cooperativa.</li>
+        <li><strong>Nombre y Apellido:</strong> El represntante del identificador.</li>
+        <li><strong>Contraseña:</strong> Su respectiva contraseña actual.</li>
+        <li><strong>Whatsapp:</strong> Su número de contacto.</li>
+        <li><strong>Rol:</strong> Mayoritario o Minoritario.</li>
+        <li><strong>Depositos o Retiros:</strong> Se mostrara la suma todos los depositos o retiros a su cuenta en la cooperativa.</li>
+        <li><strong>Envios:</strong> Se mostrara la suma de todos los envios que han hecho a miembros de la misma cooperativa.</li>
+        <li><strong>Retiros:</strong> Se mostrara la suma de todos los envios que ha recibido por miembros de la cooperativa.</li>
+        <li><strong>Capital:</strong> La suma de Depositos y Retiros, menos envios.</li>
+        <li><strong>IDM:</strong> Es el interes que se le agregara automáticamente el dia siguiente.</li>
+        <li><strong>Intéres:</strong> Es la suma de todo el interes acumulado hasta el día de hoy.</li>
+        <li><strong>Total:</strong> La suma de intéres y capital.</li>
+      </ul>
+      <div class="example">
+        <strong>Nota:</strong> Si algun dado no se ha mostrado, inicie sesión nuevamente, si el caso persista comuniquese al número de whatsApp 0982554230.
+      </div>
+      <div class="img">
+        <img src="img/perfil1.jpg" alt="">
+      </div>
+    </section>
+    <section>
+      <h2>Cambiar contraseña</h2>
+      <p>Hemos simplificados lo más posibles los pasos:</p>
+      <ul>
+          <li>Se mostrara debajo de contraseña actual, su respectiva contraseña.</li>
+          <li>En el campo de texto, debera introducir la nueva contraseña.</li>
+          <li>Para guardar los cambios, solo precione en el botón "Actualizar".</li>
+      </ul>
+      <div class="example">
+          <strong>Nota:</strong> Para comprobar que se guardo su contraseña nueva, vuelva a inicar sesión.
+      </div>
+      <div class="img">
+        <img src="img/cambiarcontraseña.jpg" alt="">
+      </div>
+    </section>
+    <section>
+      <h2>Registro de Depositos y Retiros</h2>
+      <p>Todos los depositos y retiros se mostraran aquí en orden de antiguedad a reciente.</p>
+      <ul>
+          <li>Se mostrara el monto, la fecha y descripción del deposito o retiro.</li>
+          <li>Los miembros que tengan cuenta bancaria de Produbanco, no le costara el retiro de su cuenta de la cooperativa a su cuenta bancaria.</li>
+          <li>Los miembros que tengan cualquier otra institución bancaria, el segundo envio del mes se le descontara la comisión del envio.</li>
+      </ul>
+      <div class="example">
+          <strong>Ejemplo:</strong> Juan Montalvo pide un retiro de $10,00 de la cooperativa Financiera Ssallaly, y solicita que el envio sea a su cuenta bancaria Pichincha.<br>
+          La cooperativa le enviará exactamente los $10,00 y cubrira el valor de la comisión por el envio.
+          Juan Montalvo en el mismo mes, solicita otro retiro, y que se lo envie a la misma cuenta bancaria.<br>
+          La cooperativa le enviara exactamente $9,59. se le descontara la comisión de 41ctvs.
+      </div>
+      <div class="img">
+        <img src="img/depositos.jpg" alt="">
+      </div>
+    </section>
+    <section>
+      <h2>Enviar dinero a otro miembro de la Cooperativa</h2>
+      <p>Para empezar daremos a entender los posibles datos que se encuentran.</p>
+      <ul>
+          <li><strong>Número de Cuenta: (Persona que enviara)</strong> Este dato no podras editarlo.</li>
+          <li><strong>Selecciona receptor: (Persona beneficiaria)</strong> Se desplegara una lista de todos los números de cuenta que hay actualmente en la cooperativa.</li>
+          <li><strong>Monto a enviar: (Cantidad que recibira el beneficiarío)</strong> La cantidad debera ser menor o igual a la cantidad total disponible en su cuenta.</li>
+          <li><strong>Saldo actual: (Cantidad disponible del emisor)</strong> Este dato no podras editarlo.</li>
+          <li><strong>Fecha: (Hoy)</strong> Este dato no podra editarlo.</li>
+          <li><strong>Descripción: (Opcional)</strong> Comentario de guía para la persona que reciba y envia.</li>
+          <li><strong>Campos llenos: (Realizzar envio)</strong> Despues de todos los campos llenos, precionar en enviar si esta de acuerdo con el envio.</li>
+      </ul>
+      <div class="example">
+          <strong>Nota:</strong> Despues de un envio, vuelva a iniciar sesión para comprobar el cambio.
+      </div>
+      <div class="img">
+        <img src="img/enviar.jpg" alt="">
+      </div>
+    </section>
+    <section>
+      <h2>Registro de Envios y Recibos</h2>
+      <p>Todos los envios y recibos se mostraran aquí en orden de antiguedad a reciente.</p>
+      <ul>
+          <li>Se mostrara el número de cuenta, monto, la fecha y descripción del envio o recibo.</li>
+          <li>La persona que recibe y envia tendran el mismo registro de transaccion.</li>
+      </ul>
+      <div class="example">
+          <strong>Ejemplo:</strong> Juan Montalvo envia $5,00 a Maria Piguave. La aplicación les mostrara la transaccion a ambos.
+      </div>
+      <div class="img">
+        <img src="img/transaccion.jpg" alt="">
+      </div>
+    </section>
+    <section>
+      <h2>Crear Solicitud de Préstamo</h2>
+      <p>Para empezar daremos a entender los posibles datos que se encuentran.</p>
+      <ul>
+          <li><strong>Número de Cuenta:</strong> Este dato no podras editarlo.</li>
+          <li><strong>Nombre:</strong> Este dato no podras editarlo.</li>
+          <li><strong>Monto:</strong> La cantidad que desee el préstamo. Minoritarios de $50,00 a $300,00 la primera vez, luego hasta $500,00. Mayoritarios de $50,00 a $1.000,00.</li>
+          <li><strong>Meses:</strong> La cantidad de meses que desee diferirlo entre 1 a 12 meses.</li>
+          <li><strong>Fecha:</strong> Este dato no podras editarlo.</li>
+          <li><strong>Estado:</strong> Al comienzo estará en pendiente hasta recibir el préstamo y cambiara a Aceptado y dejara de ser aceptado cuando ya haya cancelado el préstamo, y cambiará a Finalizado.</li>
+          <li><strong>Enviar Formulario:</strong> Luego de llenar todos los campos, precione en el botón de "Enviar" si esta de acuerdo.</li>
+      </ul>
+      <div class="example">
+          <strong>Nota:</strong><br>1. Todas las solicitudes seran aceptadas en orden de antiguedad.<br>
+          2. Para los minoritarios, las segundas solicitudes seran eliminadas, solo si no ha terminado de cancelar el primer préstamo.<br>
+          3. Para los mayoritarios, Podrán hacer multiples préstamos siempre y cuando la suma de todos los préstamos activos no sean superior a $1.000,00.
+      </div>
+      <div class="img">
+        <img src="img/solicitud.jpg" alt="">
+      </div>
+    </section>
+    <section>
+      <h2>Registro de todas las solicitudes de préstamos.</h2>
+      <p>Todos las solicitudes seran aceptadas por orden de antiguedad.</p>
+      <ul>
+          <li>Se mostrara el número de cuenta, nombre, monto, meses, fecha y estado de la solicitud.</li>
+          <li>El tiempo de espera promedio de un préstamo es de 21 dias.</li>
+      </ul>
+      <div class="example">
+          <strong>Ejemplo:</strong> Juan Montalvo hizo una solicitud de préstamo ayer, pero Maria Piguave hizo una solicitud la semana pasada.<br>
+          La Cooperativa Financiera Ssallaly, le aceptara la solicitud a Maria, salvo que haya suficiente fondos para ambos. En conclusión en este caso, Maria tiene prioridad.
+      </div>
+      <div class="img">
+        <img src="img/registroPrestamo.jpg" alt="">
+      </div>
+    </section>
+    <section>
+      <h2>Registro de pagos de préstamos.</h2>
+      <p>Todos los pagos de todos los miembros se mostrarán aquí.</p>
+      <ul>
+          <li>Se mostrara el número de cuenta, nombre, fecha, cuota, mes, meses del preéstamo e intéres.</li>
+          <li>Los préstamos tienen 5 dias de gracia.</li>
+          <li>Al sexto día se le aumentará un 1% de intéres por mora.</li>
+      </ul>
+      <div class="example">
+          <strong>Ejemplo:</strong> Juan Montalvo recibio un préstamo el dá 1 de enero. Juan Montalvo tiene para cancelar la primer cuota del 1 de febrero hasta el 6 de febrero.<br>
+          Sí, Juan Montalvo cancela el 7 de febrero pagara un 1% por mora.
+      </div>
+      <div class="img">
+        <img src="img/prestamo.jpg" alt="">
+      </div>
+    </section>
+    <section>
+      <h2>Miembros de la Cooperativa.</h2>
+      <p>El capital, intéres y total de cada miembro se mostrarán aquí.</p>
+      <ul>
+          <li>Esta opción estara aquí, mientras en las encuestas digan lo contrario. </li>
+      </ul>
+      <div class="example">
+          <strong>Ejemplo:</strong> En cualquier encuesta que estará disponible cada més, puede votar para eliminar esta pagina.
+      </div>
+      <div class="img">
+        <img src="img/ranking.jpg" alt="">
+      </div>
+    </section>
+    <section>
+      <h2>Calculadora</h2>
+      <p>Este simulador temporalmente esta incompleto.</p>
+      <ul>
+          <li>Simular préstamos que cumplen los requisitos.</li>
+          <li>Proximamente: Simular los creditos de celulares.</li>
+      </ul>
+      <div class="example">
+          <strong>Ejemplo:</strong> Cuando la sección de Hop&Hazel, este disponible se modificara esta seccion.
+      </div>
+      <div class="img">
+        <img src="img/calculadora.jpg" alt="">
+      </div>
+    </section>
+    <section>
+      <h2>Documentación</h2>
+      <p>En esta sección encontrara todas las politicas de la COOPERATIVA FINANCIERA SSALLALY.</p>
+      <ul>
+          <li>Simular préstamos que cumplen los requisitos.</li>
+          <li>Este apartado al igual que "Aprender", se irá actualizando cada més.</li>
+      </ul>
+      <div class="example">
+          <strong>Ejemplo:</strong> Cada 5 de cada mes, revise esta sección de algún cambio.
+      </div>
+      <div class="img">
+        <img src="img/documentacion.jpg" alt="">
+      </div>
+    </section>
+    <section>
+      <h2>Encuestas</h2>
+      <p>En esta sección encontrara la encuesta disponible del mes.</p>
+      <ul>
+          <li>Cada mes habra una encuesta nueva, no es obligatorio responderlas.</li>
+          <li>Su participacion en ella, hara que la aplicacíon mejore.</li>
+      </ul>
+      <div class="example">
+          <strong>Nota:</strong> Nos gustaría saber tu opinión.
+      </div>
+      <div class="img">
+        <img src="img/encuesta.jpg" alt="">
+      </div>
+    </section>
+  </main>
+
+
+  
+  <div class="footer">
+    <a class="icon" href="resumen.html"><i class="fa fa-trophy"></i>Ranking</a>
+    <a class="icon" href="calculadora.html"><i class="fa fa-calculator"></i>Calculadora</a>
+    <a class="icon" href="documentacion.html"><i class="fa fa-file-alt"></i>Documentación</a>
+    <a class="icon" href="aprender.html"><i class="fa fa-book-open"></i>Aprender</a>
+    <a class="icon" href="encuestas.html"><i class="fa fa-poll"></i>Encuestas</a>
+  </div>
+  
+
+
+  <script src="aprender.js"></script>
+</body>
+</html>

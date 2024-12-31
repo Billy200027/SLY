@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sly - Depósitos</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="transacciones.css">
+</head>
+<body>
+  <header>
+    <div class="menu-toggle" id="menu-btn">☰</div>
+    <div class="sidebar" id="sidebar">
+      <div class="close-btn" id="close-btn">×</div>
+      <nav>
+        <ul>
+          <li><a href="resumen.html">Recursos Adicionales</a></li>
+          <li><a href="perfil.html">Datos Personales</a></li>
+          <li><a href="login.html">Cerrar sesión</a></li>
+        </ul>
+      </nav>
+    </div>
+    <h1>Sly</h1>
+    <p></p>
+  </header>
+
+  <main>
+    <h2 class="a">Registro de Transacciones</h2>
+    <p class="p">La fecha reciente se mostrar al comienzo.
+      Para mayor información sobre cualquier tipo de información
+      respecto a sus transacciones a su cuenta, envie un mensaje al whatsApp.
+      Recuerde que los transacciones pueden tardar un promedio de hasta 1h en ser agregados.
+    </p>
+    <h3 class="a">Enviar Dinero</h3>
+  <form id="form-envio">
+    <!-- Mostrar número de cuenta del usuario actual -->
+      <div class="div">
+        <label for="envia">Tu número de cuenta:</label>
+        <label for="recibe">Selecciona receptor:</label>
+        <label for="monto">Monto a enviar:</label>
+        <label for="total1">Tu saldo actual es:</label>
+        <!-- Fecha (readonly con fecha actual) -->
+        <label for="fecha">Fecha:</label>
+        <label for="descripcion">Descripción:</label>
+        <label>Si todos los campos estan llenos:</label>
+      </div>
+      <div class="div">
+        <input type="text" id="envia" readonly />
+        <select id="recibe">
+          <!-- Opciones de receptores (se llenarán dinámicamente en JS) -->
+          </select>    
+        <input type="number" id="monto" min="1" placeholder="Ingresa monto" required />
+        <input type="number" id="totalInput" value="1000" readonly />
+        <input type="date" id="fecha" readonly />
+        <input type="text" id="descripcion" maxlength="100" placeholder="Motivo del envío" />
+        <button type="submit">Enviar</button>
+      </div>
+
+
+    <!-- Descripción -->
+      
+      
+    <!-- Botón de enviar -->
+      
+  </form>
+
+  <!-- Mensajes de alerta -->
+  <p id="mensaje"></p>
+
+
+
+    <table id="tabla-transaciones">
+      <thead>
+        <tr>
+          <th>Envia</th>
+          <th>Monto</th>
+          <th>Fecha</th>
+          <th>Recibe</th>
+          <th>Monto</th>
+          <th>Descripción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Los datos se llenarán automáticamente -->
+      </tbody>
+    </table>
+  </main>
+<div class="footer">
+  <a class="icon" href="perfil.html"><i class="fas fa-user"></i> Perfil</a>
+  <a class="icon" href="depositos.html"><i class="fas fa-wallet"></i> Depositos</a>
+  <a class="icon" href="transacciones.html"><i class="fas fa-exchange-alt"></i> Transacciones</a>
+  <a class="icon" href="solicitudes.html"><i class="fas fa-file-alt"></i> Solicitudes</a>
+  <a class="icon" href="prestamos.html"><i class="fas fa-hand-holding-usd"></i> Prestamos</a>
+</div>
+
+
+  <script src="transacciones.js"></script>
+</body>
+</html>

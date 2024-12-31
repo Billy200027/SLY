@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sly - Inicio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="perfil.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <div class="menu-toggle" id="menu-btn">☰</div>
+    <div class="sidebar" id="sidebar">
+      <div class="close-btn" id="close-btn">×</div>
+      <nav>
+        <ul>
+            <li><a href="resumen.html">Recursos Adicionales</a></li>
+            <li><a href="perfil.html">Datos Personales</a></li>
+            <li><a href="login.html">Cerrar sesión</a></li>
+        </ul>
+      </nav>
+    </div>
+    <h1>Sly</h1>
+    <p></p>
+  </header>
+
+  <main>
+    <h2 class="a">¡Nos da gusto verte de nuevo...!</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Tipos de Datos</th>
+                <th>Descripción de Datos</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th class="datos">Numero de Cuenta</th>
+                <th class="datos" id="Ncuenta"></th>
+            </tr>
+            <tr>
+                <th class="datos">Nombre y Apellido</th>
+                <th class="datos" id="Nombre"></th>
+            </tr>
+            <tr>
+                <th class="datos">Contraseña</th>
+                <th class="datos" id="contraseña"></th>
+            </tr>
+            <tr>
+                <th class="datos">WhatsApp</th>
+                <th class="datos" id="celular"></th>
+            </tr>
+            <tr>
+                <th class="datos">Rol</th>
+                <th class="datos" id="rol"></th>
+            </tr>
+            <tr>
+                <th class="datos">Depositos</th>
+                <th class="datos" id="deposito"></th>
+            </tr>
+            <tr>
+                <th class="datos">Envios</th>
+                <th class="datos" id="envio"></th>
+            </tr>
+            <tr>
+                <th class="datos">Retiros</th>
+                <th class="datos" id="retiro"></th>
+            </tr>
+            <tr>
+                <th class="datos">Capital</th>
+                <th class="datos" id="capital"></th>
+            </tr>
+            <tr>
+                <th class="datos">IDM</th>
+                <th class="datos" id="mañana"></th>
+            </tr>
+            <tr>
+                <th class="datos">Interes</th>
+                <th class="datos" id="interes"></th>
+            </tr>
+            <tr>
+                <th class="datos">Total</th>
+                <th class="datos" id="total"></th>
+            </tr>
+        </tbody>
+    </table>
+    <h3 class="a">¿Desea cambiar contraseña?</h3>
+    <p>Si los cambios no aparecen, cierre sesion y abra nuevamente, si los cambios persisten, comuniquese por whatsApp al numero 0982554230</p>
+    <table>
+        <tbody>
+            <tr>
+                <th>
+                    Contraseña Actual
+                </th>
+                <th>
+                    Nueva Contraseña
+                </th>
+                <th>
+                    Cambiar
+                </th>
+            </tr>
+            <tr>
+                <th id="contraseñaHoy" class="datos">     
+                </th>
+                <th class="datos">
+                    <input class="a" type="text" id="nuevaContrasena">
+                </th>
+                <th class="datos">
+                    <button id="actualizar" class="btn2">Actualizar</button>
+                </th>
+            </tr>
+        </tbody>
+    </table>
+  </main>
+  <div class="footer">
+    <a class="icon" href="perfil.html"><i class="fas fa-user"></i> Perfil</a>
+    <a class="icon" href="depositos.html"><i class="fas fa-wallet"></i> Depositos</a>
+    <a class="icon" href="transacciones.html"><i class="fas fa-exchange-alt"></i> Transacciones</a>
+    <a class="icon" href="solicitudes.html"><i class="fas fa-file-alt"></i> Solicitudes</a>
+    <a class="icon" href="prestamos.html"><i class="fas fa-hand-holding-usd"></i> Prestamos</a>
+  </div>
+  
+
+
+  <script src="perfil.js"></script>
+</body>
+</html>
