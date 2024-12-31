@@ -195,7 +195,7 @@ body {
   .footer a {
     text-decoration: none;
     color: #ecf0f1;
-    font-size: 14px;
+    font-size: 12px;
     display: flex;
     align-items: center;
     gap: 5px;
@@ -203,7 +203,7 @@ body {
   }
   
   .footer a i {
-    font-size: 25px;
+    font-size: 10px;
   }
   
 .icon{

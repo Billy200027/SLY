@@ -205,13 +205,16 @@ body {
   }
   
   .footer a i {
-    font-size: 25px;
+    font-size: 10px;
   }
   
 .icon{
   color: #fff;
-  font-size: 10px;
+  font-size: 12px;
 }
 main{
   margin-bottom: 100px;
+}
+.arreglar{
+  width: 100px;
 }

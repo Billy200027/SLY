@@ -150,6 +150,7 @@ body {
     height: 250px;
     margin: 0;
     border-radius: 20px;
+    padding: 0;
   }
   .caja1{
     display: flex;
@@ -160,13 +161,14 @@ body {
   input, .text{
     margin: 0;
     color: #fff;
-    font-weight: bolder;
-    font-size: 18px;
+    font-weight: lighter;
+    font-size: 12px;
   }
   input{
     text-align: center;
     letter-spacing: 1px;
     color: #189;
+    width: 100px;
   }
   .btn{
     background-color: #189;
@@ -210,7 +212,7 @@ body {
   .footer a {
     text-decoration: none;
     color: #ecf0f1;
-    font-size: 14px;
+    font-size: 12px;
     display: flex;
     align-items: center;
     gap: 5px;
@@ -218,7 +220,7 @@ body {
   }
   
   .footer a i {
-    font-size: 25px;
+    font-size: 10px;
   }
   
 .icon{
