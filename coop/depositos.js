@@ -1,4 +1,4 @@
-```js
+
 const depositosURL = "https://docs.google.com/spreadsheets/d/1CUws7OKTZvn0ZMgkR4ba7l1kktACUbz2KRXAjRDfh68/gviz/tq?tqx=out:csv&sheet=depositos";
 
 // Función para cargar datos del CSV
@@ -117,4 +117,3 @@ document.getElementById("withdraw-form")?.addEventListener("submit", function (e
   e.preventDefault();
   enviarFormulario(this, scriptURL);
 });
-```
