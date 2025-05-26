@@ -301,17 +301,6 @@ form input::placeholder {
 }
 
 /* Botón de enviar */
-form button {
-  width: 250px;
-  padding: 8px;
-  font-size: 14px;
-  border: 1px solid #189;
-  border-radius: 7px;
-  background-color: white;
-  color: #189;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
 
 /* Estilo activo del botón durante 2 segundos */
 form button.active-submit {
