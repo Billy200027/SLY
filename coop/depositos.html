@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Sly - Depósitos</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="depositos.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="depositos.css" />
 </head>
 <body>
   <header>
@@ -18,7 +18,7 @@
           <li><a href="resumen.html">Recursos Adicionales</a></li>
           <li><a href="perfil.html">Datos Personales</a></li>
           <li><a href="index.html">Cerrar sesión</a></li>
-      </ul>
+        </ul>
       </nav>
     </div>
     <h1>Sly</h1>
@@ -26,45 +26,43 @@
   </header>
 
   <main>
-    <h2 class="a">Registro de Depositos</h2>
-    <!-- quiero que aqui alla un formulario para depositos -->
-    
+    <h2 class="a">Registro de Depósitos</h2>
 
     <div class="tabs">
       <button onclick="toggleTab('retirar')">Retirar</button>
       <button onclick="toggleTab('depositar')">Depositar</button>
     </div>
-    
+
     <!-- Formulario de Retiro -->
     <div id="form-retiro" style="display:none;">
       <form id="retiroForm">
-        <input type="number" name="monto" placeholder="Monto (máx. 50)" max="50" required><br>
-        <input type="number" name="cuenta" placeholder="Número de cuenta" required><br>
-        <input type="text" name="banco" placeholder="Nombre del banco" maxlength="80" required><br>
-        <input type="number" name="cedula" placeholder="Número de cédula" required><br>
-        <input type="text" name="titular" placeholder="Nombre del titular" maxlength="100" required><br>
+        <input type="number" name="monto" placeholder="Monto (máx. 50)" max="50" required /><br />
+        <input type="number" name="cuenta" placeholder="Número de cuenta" required /><br />
+        <input type="text" name="banco" placeholder="Nombre del banco" maxlength="80" required /><br />
+        <input type="number" name="cedula" placeholder="Número de cédula" required /><br />
+        <input type="text" name="titular" placeholder="Nombre del titular" maxlength="100" required /><br />
         <button type="submit">Enviar</button>
       </form>
     </div>
-    
+
     <!-- Formulario de Depósito -->
     <div id="form-deposito" style="display:none;">
-      <form id="depositoForm" enctype="multipart/form-data" method="POST">
-        <input type="text" name="cuenta" placeholder="Número de cuenta" required><br>
-        <input type="text" name="nombre" placeholder="Nombre" required><br>
-        <input type="file" name="file" accept="image/*" required><br>
+      <form id="depositoForm">
+        <input type="text" name="cuenta" placeholder="Número de cuenta" required /><br />
+        <input type="text" name="nombre" placeholder="Nombre" required /><br />
+        <input type="file" name="file" accept="image/*" required /><br />
         <button type="submit">Enviar</button>
-      </form>      
+      </form>
     </div>
-    
+
     <div id="response"></div>
-    
+
     <script>
       function toggleTab(tab) {
         document.getElementById("form-retiro").style.display = (tab === 'retirar') ? 'block' : 'none';
         document.getElementById("form-deposito").style.display = (tab === 'depositar') ? 'block' : 'none';
       }
-    
+
       document.getElementById("retiroForm").addEventListener("submit", async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
@@ -75,33 +73,37 @@
         document.getElementById("response").innerText = await res.text();
         e.target.reset();
       });
-    
+
       document.getElementById("depositoForm").addEventListener("submit", async (e) => {
         e.preventDefault();
         const cuenta = e.target.cuenta.value;
         const nombre = e.target.nombre.value;
         const archivo = e.target.file.files[0];
-    
+
         if (!archivo) {
           alert("Debes subir una imagen del comprobante.");
           return;
         }
-    
+
         const reader = new FileReader();
         reader.onload = async function () {
-          const base64 = reader.result; // data:image/png;base64,...
-          const formData = new FormData();
-          formData.append("action", "deposito");
-          formData.append("cuenta", cuenta);
-          formData.append("nombre", nombre);
-          formData.append("file", base64); // Enviamos como texto
-    
+          const base64 = reader.result.split(',')[1]; // eliminamos encabezado: data:image/png;base64,...
+          const payload = {
+            action: "deposito",
+            cuenta: cuenta,
+            nombre: nombre,
+            filename: archivo.name,
+            mimeType: archivo.type,
+            base64: base64
+          };
+
           try {
-            const res = await fetch("https://script.google.com/macros/s/AKfycbzMJcXGnqUr3CzWItoFr-IH2yHnDW8LQng8W8HmKUev7uAHefcvWw7x_uZFTzgmvqT7/exec?action=deposito", {
+            const res = await fetch("https://script.google.com/macros/s/AKfycbzMJcXGnqUr3CzWItoFr-IH2yHnDW8LQng8W8HmKUev7uAHefcvWw7x_uZFTzgmvqT7/exec", {
               method: "POST",
-              body: formData
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(payload)
             });
-    
+
             const text = await res.text();
             document.getElementById("response").innerText = text;
             e.target.reset();
@@ -110,18 +112,13 @@
             alert("Hubo un error al enviar el depósito.");
           }
         };
-    
+
         reader.readAsDataURL(archivo); // Convierte a base64
       });
     </script>
-    
-    
 
-
-    <p class="p">La fecha reciente se mostrar al comienzo.
-      Para mayor información sobre cualquier tipo de información
-      respecto a sus depostios a su cuenta, envie un mensaje al whatsApp.
-      Recuerde que los depositos pueden tardar un promedio de hasta 3h en ser agregados.
+    <p class="p">
+      La fecha reciente se mostrará al comienzo. Para mayor información sobre cualquier tipo de información respecto a sus depósitos a su cuenta, envíe un mensaje al WhatsApp. Recuerde que los depósitos pueden tardar un promedio de hasta 3h en ser agregados.
     </p>
 
     <table id="tabla-depositos">
@@ -139,14 +136,14 @@
       </tbody>
     </table>
   </main>
-<div class="footer">
-  <a class="icon" href="perfil.html"><i class="fas fa-user"></i> Perfil</a>
-  <a class="icon" href="depositos.html"><i class="fas fa-wallet"></i> Depositos</a>
-  <a class="icon" href="transacciones.html"><i class="fas fa-exchange-alt"></i> Transacciones</a>
-  <a class="icon" href="solicitudes.html"><i class="fas fa-file-alt"></i> Solicitudes</a>
-  <a class="icon" href="prestamos.html"><i class="fas fa-hand-holding-usd"></i> Prestamos</a>
-</div>
 
+  <div class="footer">
+    <a class="icon" href="perfil.html"><i class="fas fa-user"></i> Perfil</a>
+    <a class="icon" href="depositos.html"><i class="fas fa-wallet"></i> Depósitos</a>
+    <a class="icon" href="transacciones.html"><i class="fas fa-exchange-alt"></i> Transacciones</a>
+    <a class="icon" href="solicitudes.html"><i class="fas fa-file-alt"></i> Solicitudes</a>
+    <a class="icon" href="prestamos.html"><i class="fas fa-hand-holding-usd"></i> Préstamos</a>
+  </div>
 
   <script src="depositos.js"></script>
 </body>
