@@ -181,6 +181,13 @@ document.getElementById("depositoForm").addEventListener("submit", async (e) => 
   reader.readAsDataURL(archivo);
 });
 
+function animateButton(button) {
+    button.classList.add("active-submit");
+    setTimeout(() => {
+      button.classList.remove("active-submit");
+    }, 2000);
+  }
+
     </script>
 
     <p class="p">
