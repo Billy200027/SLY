@@ -58,3 +58,13 @@ menuBtn.addEventListener("click", () => {
 closeBtn.addEventListener("click", () => {
     sidebar.classList.remove("active");
 });
+
+
+
+function animateButton(button) {
+    button.classList.add("active-submit");
+    setTimeout(() => {
+      button.classList.remove("active-submit");
+    }, 2000); // 2 segundos
+  }
+  
