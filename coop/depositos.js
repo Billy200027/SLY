@@ -1,15 +1,16 @@
 const depositosURL = "https://docs.google.com/spreadsheets/d/1CUws7OKTZvn0ZMgkR4ba7l1kktACUbz2KRXAjRDfh68/gviz/tq?tqx=out:csv&sheet=depositos";
 
+// Función para cargar datos del CSV
 async function cargarCSV(url) {
   const response = await fetch(url);
   const data = await response.text();
-  return data.split("\n").map(row =>
-    row.split(",").map(cell => cell.replace(/['"]+/g, "").trim())
-  );
+  return data.split("\n").map((row) => row.split(",").map((cell) => cell.replace(/['"]+/g, "").trim()));
 }
 
+// Obtener datos del usuario desde localStorage
 const usuarioActual = JSON.parse(localStorage.getItem("currentUser"));
 
+// Cargar tabla de depósitos con filtro por cuenta
 async function cargarDepositos() {
   const datos = await cargarCSV(depositosURL);
   const tbody = document.querySelector("#tabla-depositos tbody");
@@ -17,32 +18,27 @@ async function cargarDepositos() {
 
   const numeroCuentaUsuario = usuarioActual ? usuarioActual.numeroCuenta : null;
 
-  // Corregido: evitar destructuring en el parámetro para evitar error de sintaxis
-  datos.slice(1).forEach(row => {
-    const nCuenta = row[0];
-    const Nombre = row[1];
-    const Monto = row[2];
-    const fecha = row[3];
-    const descripción = row[4];
-
+  datos.slice(1).forEach(([nCuenta, Nombre, Monto, fecha, descripción]) => {
     if (nCuenta && (!numeroCuentaUsuario || nCuenta === numeroCuentaUsuario)) {
-      const rowElem = document.createElement("tr");
-      rowElem.innerHTML = `
+      const row = document.createElement("tr");
+      row.innerHTML = `
         <td>${nCuenta}</td>
         <td>${Nombre}</td>
         <td>${Monto || ""}</td>
         <td>${fecha || ""}</td>
         <td>${descripción}</td>
       `;
-      tbody.appendChild(rowElem);
+      tbody.appendChild(row);
     }
   });
 }
 
+// Inicializar si hay tabla de depósitos
 if (document.getElementById("tabla-depositos")) {
   cargarDepositos();
 }
 
+// Abrir y cerrar el menú lateral
 const menuBtn = document.getElementById("menu-btn");
 const sidebar = document.getElementById("sidebar");
 const closeBtn = document.getElementById("close-btn");
@@ -55,16 +51,14 @@ closeBtn?.addEventListener("click", () => {
   sidebar.classList.remove("active");
 });
 
+// Alternar pestañas entre "Depositar" y "Retirar"
 const tabButtons = document.querySelectorAll(".tabs button");
 const depositForm = document.getElementById("deposit-form");
 const withdrawForm = document.getElementById("withdraw-form");
 
-if (depositForm) depositForm.style.display = "flex";
-if (withdrawForm) withdrawForm.style.display = "none";
-
-tabButtons.forEach(button => {
+tabButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    tabButtons.forEach(btn => btn.classList.remove("active"));
+    tabButtons.forEach((btn) => btn.classList.remove("active"));
     button.classList.add("active");
 
     if (button.dataset.tab === "depositar") {
@@ -77,6 +71,7 @@ tabButtons.forEach(button => {
   });
 });
 
+// Función para enviar formularios y mostrar feedback
 async function enviarFormulario(formulario, urlScript) {
   const formData = new FormData(formulario);
   const button = formulario.querySelector("button");
@@ -89,7 +84,9 @@ async function enviarFormulario(formulario, urlScript) {
 
     if (response.ok) {
       button.classList.add("active-submit");
-      setTimeout(() => button.classList.remove("active-submit"), 2000);
+      setTimeout(() => {
+        button.classList.remove("active-submit");
+      }, 2000);
       formulario.reset();
     } else {
       alert("Error al enviar el formulario.");
@@ -100,14 +97,15 @@ async function enviarFormulario(formulario, urlScript) {
   }
 }
 
+// Manejar envíos de formularios
 const scriptURL = "https://script.google.com/macros/s/AKfycbyNAA3zGSu5RmgNH2hDU-Q-vUPPtW8ONP4LaB65qI9szarjjM9u0guOMjMhw9OkxZ4H/exec";
 
-document.getElementById("deposit-form")?.addEventListener("submit", e => {
+document.getElementById("deposit-form")?.addEventListener("submit", function (e) {
   e.preventDefault();
-  enviarFormulario(e.target, scriptURL);
+  enviarFormulario(this, scriptURL);
 });
 
-document.getElementById("withdraw-form")?.addEventListener("submit", e => {
+document.getElementById("withdraw-form")?.addEventListener("submit", function (e) {
   e.preventDefault();
-  enviarFormulario(e.target, scriptURL);
+  enviarFormulario(this, scriptURL);
 });
