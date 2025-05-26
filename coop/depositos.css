@@ -3,10 +3,11 @@ body {
   font-family: 'Montserrat', sans-serif;
   margin: 0;
   padding: 0;
-  background: linear-gradient(transparent,#fff);
+  background: linear-gradient(transparent, #fff);
   color: #333;
 }
 
+/* Encabezado */
 header {
   background: #189;
   color: #ecf0f1;
@@ -28,6 +29,7 @@ header h1 {
   cursor: pointer;
 }
 
+/* Menú lateral */
 .sidebar {
   position: fixed;
   top: 0;
@@ -66,7 +68,7 @@ header h1 {
   font-size: 16px;
 }
 
-/* Main content */
+/* Contenido principal */
 main {
   padding: 20px;
   margin-bottom: 100px; /* Para que no tape el footer */
@@ -75,6 +77,18 @@ main {
 h2 {
   margin-bottom: 10px;
   color: #34495e;
+}
+
+.a {
+  text-align: center;
+  color: #189;
+}
+
+/* Párrafo informativo */
+.p {
+  color: #555;
+  font-size: 14px;
+  text-align: center;
 }
 
 /* Tabs */
@@ -96,20 +110,17 @@ h2 {
   transition: border-bottom 0.3s;
 }
 
-.tabs button:hover {
-  border-bottom: 2px solid #189;
-}
-
+.tabs button:hover,
 .tabs button.active {
   border-bottom: 2px solid #189;
 }
 
-/* Estilo general de los formularios */
+/* Formularios */
 form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px; /* separación entre inputs */
+  gap: 10px;
   margin-top: 20px;
   width: 100%;
   max-width: 400px;
@@ -117,7 +128,6 @@ form {
   margin-right: auto;
 }
 
-/* Todos los inputs */
 form input,
 form button {
   width: 100%;
@@ -132,7 +142,6 @@ form input::placeholder {
   color: #189;
 }
 
-/* Botón de enviar */
 form button {
   background-color: #189;
   color: #fff;
@@ -146,13 +155,12 @@ form button:hover {
   background-color: #147;
 }
 
-/* Estilo activo del botón durante 2 segundos */
 form button.active-submit {
   background-color: #147 !important;
   color: #fff !important;
 }
 
-/* Tablas */
+/* Tabla */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -198,10 +206,21 @@ tr:last-child td {
   table {
     font-size: 10px;
   }
+
+  .tabs {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .tabs button {
+    width: 100%;
+    text-align: center;
+  }
 }
 
+/* Caja informativa */
 .caja {
-  background-color: #1895;
+  background-color: rgba(17, 136, 153, 0.3);
   display: flex;
   flex-direction: column;
   padding: 5px;
@@ -215,41 +234,23 @@ tr:last-child td {
 }
 
 .c2 {
-  font-family: times;
+  font-family: Times, serif;
   font-size: 12px;
 }
 
+/* Botón personalizado */
 .btn {
   background-color: #189;
   color: #fff;
   border: 0.6px solid transparent;
   border-radius: 5px;
   padding: 2px 0;
-  letter-spacing: 10px;
-  font-family: poppins, sans-serif;
+  letter-spacing: 1px;
+  font-family: 'Poppins', sans-serif;
   margin: 10px 0;
 }
 
-.a {
-  text-align: center;
-  color: #189;
-}
-
-.b {
-  margin: 5px;
-}
-
-.splash {
-  width: 100%;
-  height: 100vh;
-}
-
-.p {
-  color: #555;
-  font-size: 14px;
-  text-align: center;
-}
-
+/* Footer fijo inferior */
 .footer {
   background-color: #189;
   color: #ecf0f1;
@@ -282,6 +283,7 @@ tr:last-child td {
   font-size: 12px;
 }
 
+/* Sección de cuentas */
 .cuentas-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -303,6 +305,5 @@ tr:last-child td {
 }
 
 strong {
-  margin-top: 0;
   color: #189;
 }
