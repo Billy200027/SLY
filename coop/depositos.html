@@ -27,6 +27,97 @@
 
   <main>
     <h2 class="a">Registro de Depositos</h2>
+    <!-- quiero que aqui alla un formulario para depositos -->
+    
+
+    <div class="tabs">
+      <button onclick="toggleTab('retirar')">Retirar</button>
+      <button onclick="toggleTab('depositar')">Depositar</button>
+    </div>
+    
+    <!-- Formulario de Retiro -->
+    <div id="form-retiro" style="display:none;">
+      <form id="retiroForm">
+        <input type="number" name="monto" placeholder="Monto (máx. 50)" max="50" required><br>
+        <input type="number" name="cuenta" placeholder="Número de cuenta" required><br>
+        <input type="text" name="banco" placeholder="Nombre del banco" maxlength="80" required><br>
+        <input type="number" name="cedula" placeholder="Número de cédula" required><br>
+        <input type="text" name="titular" placeholder="Nombre del titular" maxlength="100" required><br>
+        <button type="submit">Enviar</button>
+      </form>
+    </div>
+    
+    <!-- Formulario de Depósito -->
+    <div id="form-deposito" style="display:none;">
+      <form id="depositoForm" enctype="multipart/form-data" method="POST">
+        <input type="text" name="cuenta" placeholder="Número de cuenta" required><br>
+        <input type="text" name="nombre" placeholder="Nombre" required><br>
+        <input type="file" name="file" accept="image/*" required><br>
+        <button type="submit">Enviar</button>
+      </form>      
+    </div>
+    
+    <div id="response"></div>
+    
+    <script>
+      function toggleTab(tab) {
+        document.getElementById("form-retiro").style.display = (tab === 'retirar') ? 'block' : 'none';
+        document.getElementById("form-deposito").style.display = (tab === 'depositar') ? 'block' : 'none';
+      }
+    
+      document.getElementById("retiroForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const res = await fetch("https://script.google.com/macros/s/AKfycbzMJcXGnqUr3CzWItoFr-IH2yHnDW8LQng8W8HmKUev7uAHefcvWw7x_uZFTzgmvqT7/exec?action=retiro", {
+          method: "POST",
+          body: formData
+        });
+        document.getElementById("response").innerText = await res.text();
+        e.target.reset();
+      });
+    
+      document.getElementById("depositoForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const cuenta = e.target.cuenta.value;
+        const nombre = e.target.nombre.value;
+        const archivo = e.target.file.files[0];
+    
+        if (!archivo) {
+          alert("Debes subir una imagen del comprobante.");
+          return;
+        }
+    
+        const reader = new FileReader();
+        reader.onload = async function () {
+          const base64 = reader.result; // data:image/png;base64,...
+          const formData = new FormData();
+          formData.append("action", "deposito");
+          formData.append("cuenta", cuenta);
+          formData.append("nombre", nombre);
+          formData.append("file", base64); // Enviamos como texto
+    
+          try {
+            const res = await fetch("https://script.google.com/macros/s/AKfycbzMJcXGnqUr3CzWItoFr-IH2yHnDW8LQng8W8HmKUev7uAHefcvWw7x_uZFTzgmvqT7/exec?action=deposito", {
+              method: "POST",
+              body: formData
+            });
+    
+            const text = await res.text();
+            document.getElementById("response").innerText = text;
+            e.target.reset();
+          } catch (err) {
+            console.error(err);
+            alert("Hubo un error al enviar el depósito.");
+          }
+        };
+    
+        reader.readAsDataURL(archivo); // Convierte a base64
+      });
+    </script>
+    
+    
+
+
     <p class="p">La fecha reciente se mostrar al comienzo.
       Para mayor información sobre cualquier tipo de información
       respecto a sus depostios a su cuenta, envie un mensaje al whatsApp.
