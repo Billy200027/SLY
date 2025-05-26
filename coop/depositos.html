@@ -4,115 +4,79 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Sly - Depósitos</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="depositos.css" />
+  <script defer src="depositos.js"></script>
 </head>
 <body>
   <header>
-    <div class="menu-toggle" id="menu-btn">☰</div>
-    <div class="sidebar" id="sidebar">
-      <div class="close-btn" id="close-btn">×</div>
-      <nav>
-        <ul>
-          <li><a href="resumen.html">Recursos Adicionales</a></li>
-          <li><a href="perfil.html">Datos Personales</a></li>
-          <li><a href="index.html">Cerrar sesión</a></li>
-        </ul>
-      </nav>
-    </div>
-    <h1>Sly</h1>
-    <p></p>
+    <h1>Sly - Depósitos</h1>
+    <div id="menu-btn" class="menu-toggle">☰</div>
   </header>
 
-  <main>
-    <h2 class="a">Registro de Depósitos</h2>
+  <aside id="sidebar" class="sidebar">
+    <div id="close-btn" class="close-btn">✖</div>
+    <nav>
+      <ul>
+        <li><a href="#">Inicio</a></li>
+        <li><a href="#">Mi cuenta</a></li>
+      </ul>
+    </nav>
+  </aside>
 
+  <main>
     <div class="tabs">
+      <button data-tab="deposit-form">Depositar</button>
       <button data-tab="withdraw-form">Retirar</button>
-      <button data-tab="deposit-form" class="active">Depositar</button>
       <button data-tab="form-cuentas">Cuentas</button>
     </div>
 
-    <!-- Formulario de Retiro -->
-    <div id="withdraw-form" class="tab-content" style="display:none;">
-      <form id="formRetiro">
-        <input type="number" name="monto" placeholder="Monto (máx. 50)" max="50" required /><br />
-        <input type="number" name="cuenta" placeholder="Número de cuenta" required /><br />
-        <input type="text" name="banco" placeholder="Nombre del banco" maxlength="80" required /><br />
-        <input type="number" name="cedula" placeholder="Número de cédula" required /><br />
-        <input type="text" name="titular" placeholder="Nombre del titular" maxlength="100" required /><br />
-        <button type="submit">Enviar</button>
+    <!-- Formulario Depositar -->
+    <div id="deposit-form" class="tab-content" style="display: none;">
+      <form>
+        <input type="text" name="cuenta" placeholder="Número de cuenta" required />
+        <input type="text" name="nombre" placeholder="Nombre" required />
+        <input type="number" name="monto" placeholder="Monto" required />
+        <input type="text" name="descripcion" placeholder="Descripción" />
+        <input type="date" name="fecha" required />
+        <button type="submit">Enviar depósito</button>
       </form>
     </div>
 
-    <!-- Formulario de Depósito -->
-    <div id="deposit-form" class="tab-content" style="display:flex;">
-      <form id="formDeposito" enctype="multipart/form-data">
-        <input type="text" name="cuenta" placeholder="Número de cuenta" required /><br />
-        <input type="text" name="nombre" placeholder="Nombre" required /><br />
-        <input type="file" name="file" accept="image/*" required /><br />
-        <button type="submit">Enviar</button>
+    <!-- Formulario Retirar -->
+    <div id="withdraw-form" class="tab-content" style="display: none;">
+      <form>
+        <input type="text" name="cuenta" placeholder="Número de cuenta" required />
+        <input type="text" name="nombre" placeholder="Nombre" required />
+        <input type="number" name="monto" placeholder="Monto" required />
+        <input type="text" name="descripcion" placeholder="Descripción" />
+        <input type="date" name="fecha" required />
+        <button type="submit">Enviar retiro</button>
       </form>
     </div>
 
-    <!-- Sección de Cuentas -->
-    <div id="form-cuentas" class="tab-content" style="display:none;">
-      <div class="cuentas-container">
-        <div class="cuenta">
-          <h3>Cuenta 1</h3>
-          <p><strong>Banco:</strong> Be Produbanco</p>
-          <p><strong>Cédula:</strong> 0958927402</p>
-          <p><strong>Tipo de cuenta:</strong> Ahorro</p>
-          <p><strong>N° Cuenta:</strong> 18059641287</p>
-        </div>
-        <div class="cuenta">
-          <h3>Cuenta 2</h3>
-          <p><strong>Banco:</strong> Banco Pichincha</p>
-          <p><strong>Cédula:</strong> 0958927402</p>
-          <p><strong>Tipo de cuenta:</strong> Ahorro</p>
-          <p><strong>N° Cuenta:</strong> 2213714788</p>
-        </div>
-        <div class="cuenta">
-          <h3>Cuenta 3</h3>
-          <p><strong>Banco:</strong> Banco Pacífico</p>
-          <p><strong>Cédula:</strong> 0958927402</p>
-          <p><strong>Tipo de cuenta:</strong> Ahorro</p>
-          <p><strong>N° Cuenta:</strong> 1069598029</p>
-        </div>
-      </div>
+    <!-- Tabla de cuentas -->
+    <div id="form-cuentas" class="tab-content" style="display: none;">
+      <h2 class="a">Cuentas Registradas</h2>
+      <table id="tabla-depositos">
+        <thead>
+          <tr>
+            <th>Número</th>
+            <th>Nombre</th>
+            <th>Monto</th>
+            <th>Fecha</th>
+            <th>Descripción</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
     </div>
-
-    <div id="response"></div>
-
-    <p class="p">
-      La fecha reciente se mostrará al comienzo. Para mayor información sobre cualquier tipo de información respecto a sus depósitos a su cuenta, envíe un mensaje al WhatsApp. Recuerde que los depósitos pueden tardar un promedio de hasta 3h en ser agregados.
-    </p>
-
-    <table id="tabla-depositos">
-      <thead>
-        <tr>
-          <th>N Cuenta</th>
-          <th>Nombre</th>
-          <th>Monto</th>
-          <th>Fecha</th>
-          <th>Descripción</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Los datos se llenarán automáticamente -->
-      </tbody>
-    </table>
   </main>
 
-  <div class="footer">
-    <a class="icon" href="perfil.html"><i class="fas fa-user"></i> Perfil</a>
-    <a class="icon" href="depositos.html"><i class="fas fa-wallet"></i> Depósitos</a>
-    <a class="icon" href="transacciones.html"><i class="fas fa-exchange-alt"></i> Transacciones</a>
-    <a class="icon" href="solicitudes.html"><i class="fas fa-file-alt"></i> Solicitudes</a>
-    <a class="icon" href="prestamos.html"><i class="fas fa-hand-holding-usd"></i> Préstamos</a>
-  </div>
-
-  <script src="depositos.js"></script>
+  <footer class="footer">
+    <a href="#"><i class="icon">🏠</i>Inicio</a>
+    <a href="#"><i class="icon">📤</i>Depositar</a>
+    <a href="#"><i class="icon">📥</i>Retirar</a>
+  </footer>
 </body>
 </html>
