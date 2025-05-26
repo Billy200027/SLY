@@ -218,3 +218,99 @@ body {
 main{
   margin-bottom: 100px;
 }
+
+.cuentas-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.cuenta {
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.cuenta h3{
+  margin-top: 0;
+  color: #189;
+}
+
+
+strong{
+  margin-top: 0;
+  color: #189;
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.tabs button {
+  font-size: 18px;
+  background: none;
+  border: none;
+  color: #189;
+  cursor: pointer;
+  padding: 10px;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: border-bottom 0.3s;
+}
+
+.tabs button:hover {
+  border-bottom: 2px solid #189;
+}
+
+.tabs button.active {
+  border-bottom: 2px solid #189;
+}
+
+/* Estilo general de los formularios */
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px; /* separación entre inputs */
+  margin-top: 20px;
+}
+
+/* Todos los inputs */
+form input {
+  width: 250px;
+  padding: 8px;
+  font-size: 14px;
+  color: #189;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
+}
+
+form input::placeholder {
+  color: #189;
+}
+
+/* Botón de enviar */
+form button {
+  width: 250px;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #189;
+  border-radius: 7px;
+  background-color: white;
+  color: #189;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Estilo activo del botón durante 2 segundos */
+form button.active-submit {
+  background-color: #189 !important;
+  color: #fff !important;
+}
