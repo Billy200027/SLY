@@ -58,64 +58,64 @@
     <div id="response"></div>
 
     <script>
-      function toggleTab(tab) {
-        document.getElementById("form-retiro").style.display = (tab === 'retirar') ? 'block' : 'none';
-        document.getElementById("form-deposito").style.display = (tab === 'depositar') ? 'block' : 'none';
-      }
+  function toggleTab(tab) {
+    document.getElementById("form-retiro").style.display = (tab === 'retirar') ? 'block' : 'none';
+    document.getElementById("form-deposito").style.display = (tab === 'depositar') ? 'block' : 'none';
+  }
 
-      document.getElementById("retiroForm").addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const formData = new FormData(e.target);
-        const res = await fetch("https://script.google.com/macros/s/AKfycbwOikxjyp0vO81dYB49KtxyCT1dC5GpFJ51xpBs8q2QbsUawxuiQujA2tMJF0oC-Os/exec?action=retiro", {
+  document.getElementById("retiroForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const res = await fetch("https://script.google.com/macros/s/AKfycbwOikxjyp0vO81dYB49KtxyCT1dC5GpFJ51xpBs8q2QbsUawxuiQujA2tMJF0oC-Os/exec?action=retiro", {
+      method: "POST",
+      body: formData
+    });
+    document.getElementById("response").innerText = await res.text();
+    e.target.reset();
+  });
+
+  document.getElementById("depositoForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const cuenta = e.target.cuenta.value;
+    const nombre = e.target.nombre.value;
+    const archivo = e.target.file.files[0];
+
+    if (!archivo) {
+      alert("Debes subir una imagen del comprobante.");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = async function () {
+      const base64 = reader.result; // Incluye el encabezado (data:image/...)
+
+      const body = new URLSearchParams();
+      body.append("action", "deposito");
+      body.append("cuenta", cuenta);
+      body.append("nombre", nombre);
+      body.append("file", base64);
+
+      try {
+        const res = await fetch("https://script.google.com/macros/s/AKfycbwOikxjyp0vO81dYB49KtxyCT1dC5GpFJ51xpBs8q2QbsUawxuiQujA2tMJF0oC-Os/exec", {
           method: "POST",
-          body: formData
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          body: body.toString()
         });
-        document.getElementById("response").innerText = await res.text();
+
+        const text = await res.text();
+        document.getElementById("response").innerText = text;
         e.target.reset();
-      });
+      } catch (err) {
+        console.error(err);
+        alert("Hubo un error al enviar el depósito.");
+      }
+    };
 
-      document.getElementById("depositoForm").addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const cuenta = e.target.cuenta.value;
-        const nombre = e.target.nombre.value;
-        const archivo = e.target.file.files[0];
-
-        if (!archivo) {
-          alert("Debes subir una imagen del comprobante.");
-          return;
-        }
-
-        const reader = new FileReader();
-        reader.onload = async function () {
-          const base64 = reader.result.split(',')[1]; // eliminamos encabezado: data:image/png;base64,...
-          const payload = {
-            action: "deposito",
-            cuenta: cuenta,
-            nombre: nombre,
-            filename: archivo.name,
-            mimeType: archivo.type,
-            base64: base64
-          };
-
-          try {
-            const res = await fetch("https://script.google.com/macros/s/AKfycbwOikxjyp0vO81dYB49KtxyCT1dC5GpFJ51xpBs8q2QbsUawxuiQujA2tMJF0oC-Os/exec", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(payload)
-            });
-
-            const text = await res.text();
-            document.getElementById("response").innerText = text;
-            e.target.reset();
-          } catch (err) {
-            console.error(err);
-            alert("Hubo un error al enviar el depósito.");
-          }
-        };
-
-        reader.readAsDataURL(archivo); // Convierte a base64
-      });
-    </script>
+    reader.readAsDataURL(archivo); // Convierte a base64 (con encabezado)
+  });
+</script>
 
     <p class="p">
       La fecha reciente se mostrará al comienzo. Para mayor información sobre cualquier tipo de información respecto a sus depósitos a su cuenta, envíe un mensaje al WhatsApp. Recuerde que los depósitos pueden tardar un promedio de hasta 3h en ser agregados.
