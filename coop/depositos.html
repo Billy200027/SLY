@@ -84,22 +84,22 @@
           <h3>Cuenta 1</h3>
           <p><strong>Banco:</strong> Be Produbanco</p>
           <p><strong>Cedula:</strong> 0958927402</p>
-          <p><strong>Tipo de cuenta:</strong>Ahorro</p>
-          <p><strong>N° Cuenta:</strong>18059641287</p>
+          <p><strong>Tipo de cuenta:</strong> Ahorro</p>
+          <p><strong>N° Cuenta:</strong> 18059641287</p>
         </div>
         <div class="cuenta">
           <h3>Cuenta 2</h3>
-          <p><strong>Banco:</strong>Banco Pichincha</p>
-          <p><strong>Cedula:</strong>0958927402</p>
-          <p><strong>Tipo de cuenta:</strong>Ahorro</p>
-          <p><strong>N° Cuenta:</strong>2213714788</p>
+          <p><strong>Banco:</strong> Banco Pichincha</p>
+          <p><strong>Cedula:</strong> 0958927402</p>
+          <p><strong>Tipo de cuenta:</strong> Ahorro</p>
+          <p><strong>N° Cuenta:</strong> 2213714788</p>
         </div>
         <div class="cuenta">
           <h3>Cuenta 3</h3>
-          <p><strong>Banco:</strong>Banco Pacifico</p>
-          <p><strong>Cuenta:</strong>0958927402</p>
-          <p><strong>Tipo de cuenta:</strong>Ahorro</p>
-          <p><strong>N° Cuenta:</strong>1069598029</p>
+          <p><strong>Banco:</strong> Banco Pacifico</p>
+          <p><strong>Cuenta:</strong> 0958927402</p>
+          <p><strong>Tipo de cuenta:</strong> Ahorro</p>
+          <p><strong>N° Cuenta:</strong> 1069598029</p>
         </div>
       </div>
     </div>
@@ -108,63 +108,79 @@
 
     <script>
       function toggleTab(tab) {
-        document.getElementById("form-retiro").style.display = (tab === 'retirar') ? 'block' : 'none';
-        document.getElementById("form-deposito").style.display = (tab === 'depositar') ? 'block' : 'none';
-        document.getElementById("form-cuentas").style.display = (tab === 'cuentas') ? 'block' : 'none';
-      }
+  document.getElementById("form-retiro").style.display = (tab === 'retirar') ? 'block' : 'none';
+  document.getElementById("form-deposito").style.display = (tab === 'depositar') ? 'block' : 'none';
+  document.getElementById("form-cuentas").style.display = (tab === 'cuentas') ? 'block' : 'none';
 
-      document.getElementById("retiroForm").addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const formData = new FormData(e.target);
-        const res = await fetch("https://script.google.com/macros/s/AKfycbwOikxjyp0vO81dYB49KtxyCT1dC5GpFJ51xpBs8q2QbsUawxuiQujA2tMJF0oC-Os/exec?action=retiro", {
-          method: "POST",
-          body: formData
-        });
-        document.getElementById("response").innerText = await res.text();
-        e.target.reset();
+  // Quitar clase 'active' de todos los botones
+  document.querySelectorAll(".tabs button").forEach(btn => btn.classList.remove("active"));
+
+  // Agregar clase 'active' al botón clicado
+  const index = { retirar: 0, depositar: 1, cuentas: 2 }[tab];
+  document.querySelectorAll(".tabs button")[index].classList.add("active");
+}
+
+
+document.getElementById("retiroForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const button = e.submitter;
+  animateButton(button);
+
+  const formData = new FormData(e.target);
+  const res = await fetch("https://script.google.com/macros/s/AKfycbwOikxjyp0vO81dYB49KtxyCT1dC5GpFJ51xpBs8q2QbsUawxuiQujA2tMJF0oC-Os/exec?action=retiro", {
+    method: "POST",
+    body: formData
+  });
+  document.getElementById("response").innerText = await res.text();
+  e.target.reset();
+});
+
+
+document.getElementById("depositoForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const button = e.submitter;
+  animateButton(button);
+
+  const cuenta = e.target.cuenta.value;
+  const nombre = e.target.nombre.value;
+  const archivo = e.target.file.files[0];
+
+  if (!archivo) {
+    alert("Debes subir una imagen del comprobante.");
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = async function () {
+    const base64 = reader.result.split(',')[1];
+    const payload = {
+      action: "deposito",
+      cuenta: cuenta,
+      nombre: nombre,
+      filename: archivo.name,
+      mimeType: archivo.type,
+      base64: base64
+    };
+
+    try {
+      const res = await fetch("https://script.google.com/macros/s/AKfycbwOikxjyp0vO81dYB49KtxyCT1dC5GpFJ51xpBs8q2QbsUawxuiQujA2tMJF0oC-Os/exec", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
       });
 
-      document.getElementById("depositoForm").addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const cuenta = e.target.cuenta.value;
-        const nombre = e.target.nombre.value;
-        const archivo = e.target.file.files[0];
+      const text = await res.text();
+      document.getElementById("response").innerText = text;
+      e.target.reset();
+    } catch (err) {
+      console.error(err);
+      alert("Hubo un error al enviar el depósito.");
+    }
+  };
 
-        if (!archivo) {
-          alert("Debes subir una imagen del comprobante.");
-          return;
-        }
+  reader.readAsDataURL(archivo);
+});
 
-        const reader = new FileReader();
-        reader.onload = async function () {
-          const base64 = reader.result.split(',')[1];
-          const payload = {
-            action: "deposito",
-            cuenta: cuenta,
-            nombre: nombre,
-            filename: archivo.name,
-            mimeType: archivo.type,
-            base64: base64
-          };
-
-          try {
-            const res = await fetch("https://script.google.com/macros/s/AKfycbwOikxjyp0vO81dYB49KtxyCT1dC5GpFJ51xpBs8q2QbsUawxuiQujA2tMJF0oC-Os/exec", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(payload)
-            });
-
-            const text = await res.text();
-            document.getElementById("response").innerText = text;
-            e.target.reset();
-          } catch (err) {
-            console.error(err);
-            alert("Hubo un error al enviar el depósito.");
-          }
-        };
-
-        reader.readAsDataURL(archivo);
-      });
     </script>
 
     <p class="p">
