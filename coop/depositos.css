@@ -282,15 +282,19 @@ form {
 }
 
 /* Todos los inputs */
-form input {
-  width: 250px;
-  padding: 8px;
-  font-size: 14px;
-  color: #189;
+form input,
+form button {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px;
+  margin: 8px auto;
+  display: block;
   border: 1px solid #ccc;
   border-radius: 5px;
-  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  box-sizing: border-box;
 }
+
 
 form input::placeholder {
   color: #189;
