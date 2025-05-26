@@ -60,11 +60,3 @@ closeBtn.addEventListener("click", () => {
 });
 
 
-
-function animateButton(button) {
-    button.classList.add("active-submit");
-    setTimeout(() => {
-      button.classList.remove("active-submit");
-    }, 2000); // 2 segundos
-  }
-  
