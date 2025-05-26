@@ -1,82 +1,59 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Sly - Depósitos</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="depositos.css" />
-  <script defer src="depositos.js"></script>
-</head>
-<body>
-  <header>
-    <h1>Sly - Depósitos</h1>
-    <div id="menu-btn" class="menu-toggle">☰</div>
-  </header>
+<script>
+  function toggleTab(tab) {
+    document.getElementById("form-retiro").style.display = (tab === 'retirar') ? 'block' : 'none';
+    document.getElementById("form-deposito").style.display = (tab === 'depositar') ? 'block' : 'none';
+  }
 
-  <aside id="sidebar" class="sidebar">
-    <div id="close-btn" class="close-btn">✖</div>
-    <nav>
-      <ul>
-        <li><a href="#">Inicio</a></li>
-        <li><a href="#">Mi cuenta</a></li>
-      </ul>
-    </nav>
-  </aside>
+  document.getElementById("retiroForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const res = await fetch("https://script.google.com/macros/s/AKfycbwOikxjyp0vO81dYB49KtxyCT1dC5GpFJ51xpBs8q2QbsUawxuiQujA2tMJF0oC-Os/exec?action=retiro", {
+      method: "POST",
+      body: formData
+    });
+    document.getElementById("response").innerText = await res.text();
+    e.target.reset();
+  });
 
-  <main>
-    <div class="tabs">
-      <button data-tab="deposit-form">Depositar</button>
-      <button data-tab="withdraw-form">Retirar</button>
-      <button data-tab="form-cuentas">Cuentas</button>
-    </div>
+  document.getElementById("depositoForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const cuenta = e.target.cuenta.value;
+    const nombre = e.target.nombre.value;
+    const archivo = e.target.file.files[0];
 
-    <!-- Formulario Depositar -->
-    <div id="deposit-form" class="tab-content" style="display: none;">
-      <form>
-        <input type="text" name="cuenta" placeholder="Número de cuenta" required />
-        <input type="text" name="nombre" placeholder="Nombre" required />
-        <input type="number" name="monto" placeholder="Monto" required />
-        <input type="text" name="descripcion" placeholder="Descripción" />
-        <input type="date" name="fecha" required />
-        <button type="submit">Enviar depósito</button>
-      </form>
-    </div>
+    if (!archivo) {
+      alert("Debes subir una imagen del comprobante.");
+      return;
+    }
 
-    <!-- Formulario Retirar -->
-    <div id="withdraw-form" class="tab-content" style="display: none;">
-      <form>
-        <input type="text" name="cuenta" placeholder="Número de cuenta" required />
-        <input type="text" name="nombre" placeholder="Nombre" required />
-        <input type="number" name="monto" placeholder="Monto" required />
-        <input type="text" name="descripcion" placeholder="Descripción" />
-        <input type="date" name="fecha" required />
-        <button type="submit">Enviar retiro</button>
-      </form>
-    </div>
+    const reader = new FileReader();
+    reader.onload = async function () {
+      const base64 = reader.result; // Incluye el encabezado (data:image/...)
 
-    <!-- Tabla de cuentas -->
-    <div id="form-cuentas" class="tab-content" style="display: none;">
-      <h2 class="a">Cuentas Registradas</h2>
-      <table id="tabla-depositos">
-        <thead>
-          <tr>
-            <th>Número</th>
-            <th>Nombre</th>
-            <th>Monto</th>
-            <th>Fecha</th>
-            <th>Descripción</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
-  </main>
+      const body = new URLSearchParams();
+      body.append("action", "deposito");
+      body.append("cuenta", cuenta);
+      body.append("nombre", nombre);
+      body.append("file", base64);
 
-  <footer class="footer">
-    <a href="#"><i class="icon">🏠</i>Inicio</a>
-    <a href="#"><i class="icon">📤</i>Depositar</a>
-    <a href="#"><i class="icon">📥</i>Retirar</a>
-  </footer>
-</body>
-</html>
+      try {
+        const res = await fetch("https://script.google.com/macros/s/AKfycbwOikxjyp0vO81dYB49KtxyCT1dC5GpFJ51xpBs8q2QbsUawxuiQujA2tMJF0oC-Os/exec", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          body: body.toString()
+        });
+
+        const text = await res.text();
+        document.getElementById("response").innerText = text;
+        e.target.reset();
+      } catch (err) {
+        console.error(err);
+        alert("Hubo un error al enviar el depósito.");
+      }
+    };
+
+    reader.readAsDataURL(archivo); // Convierte a base64 (con encabezado)
+  });
+</script>
