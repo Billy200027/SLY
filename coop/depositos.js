@@ -17,17 +17,24 @@ async function cargarDepositos() {
 
   const numeroCuentaUsuario = usuarioActual ? usuarioActual.numeroCuenta : null;
 
-  datos.slice(1).forEach(([nCuenta, Nombre, Monto, fecha, descripción]) => {
+  // Corregido: evitar destructuring en el parámetro para evitar error de sintaxis
+  datos.slice(1).forEach(row => {
+    const nCuenta = row[0];
+    const Nombre = row[1];
+    const Monto = row[2];
+    const fecha = row[3];
+    const descripción = row[4];
+
     if (nCuenta && (!numeroCuentaUsuario || nCuenta === numeroCuentaUsuario)) {
-      const row = document.createElement("tr");
-      row.innerHTML = `
+      const rowElem = document.createElement("tr");
+      rowElem.innerHTML = `
         <td>${nCuenta}</td>
         <td>${Nombre}</td>
         <td>${Monto || ""}</td>
         <td>${fecha || ""}</td>
         <td>${descripción}</td>
       `;
-      tbody.appendChild(row);
+      tbody.appendChild(rowElem);
     }
   });
 }
