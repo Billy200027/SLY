@@ -1,10 +1,13 @@
+```js
 const depositosURL = "https://docs.google.com/spreadsheets/d/1CUws7OKTZvn0ZMgkR4ba7l1kktACUbz2KRXAjRDfh68/gviz/tq?tqx=out:csv&sheet=depositos";
 
 // Función para cargar datos del CSV
 async function cargarCSV(url) {
   const response = await fetch(url);
   const data = await response.text();
-  return data.split("\n").map((row) => row.split(",").map((cell) => cell.replace(/['"]+/g, "").trim()));
+  return data.split("\n").map((row) =>
+    row.split(",").map((cell) => cell.replace(/['"]+/g, "").trim())
+  );
 }
 
 // Obtener datos del usuario desde localStorage
@@ -56,6 +59,10 @@ const tabButtons = document.querySelectorAll(".tabs button");
 const depositForm = document.getElementById("deposit-form");
 const withdrawForm = document.getElementById("withdraw-form");
 
+// Mostrar inicialmente solo el formulario de depósitos
+if (depositForm) depositForm.style.display = "flex";
+if (withdrawForm) withdrawForm.style.display = "none";
+
 tabButtons.forEach((button) => {
   button.addEventListener("click", () => {
     tabButtons.forEach((btn) => btn.classList.remove("active"));
@@ -98,7 +105,8 @@ async function enviarFormulario(formulario, urlScript) {
 }
 
 // Manejar envíos de formularios
-const scriptURL = "https://script.google.com/macros/s/AKfycbyNAA3zGSu5RmgNH2hDU-Q-vUPPtW8ONP4LaB65qI9szarjjM9u0guOMjMhw9OkxZ4H/exec";
+const scriptURL =
+  "https://script.google.com/macros/s/AKfycbyNAA3zGSu5RmgNH2hDU-Q-vUPPtW8ONP4LaB65qI9szarjjM9u0guOMjMhw9OkxZ4H/exec";
 
 document.getElementById("deposit-form")?.addEventListener("submit", function (e) {
   e.preventDefault();
@@ -109,3 +117,4 @@ document.getElementById("withdraw-form")?.addEventListener("submit", function (e
   e.preventDefault();
   enviarFormulario(this, scriptURL);
 });
+```
