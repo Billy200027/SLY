@@ -2,48 +2,40 @@ const depositosURL = "https://docs.google.com/spreadsheets/d/1CUws7OKTZvn0ZMgkR4
 
 // Función para cargar datos del CSV
 async function cargarCSV(url) {
-    const response = await fetch(url);
-    const data = await response.text();
-    return data.split("\n").map((row) => row.split(",").map((cell) => cell.replace(/['"]+/g, "").trim()));
+  const response = await fetch(url);
+  const data = await response.text();
+  return data.split("\n").map((row) => row.split(",").map((cell) => cell.replace(/['"]+/g, "").trim()));
 }
 
-// Obtén los datos del usuario desde localStorage
+// Obtener datos del usuario desde localStorage
 const usuarioActual = JSON.parse(localStorage.getItem("currentUser"));
 
-
-
-// Función para cargar la tabla de depósitos con filtro dinámico
+// Cargar tabla de depósitos con filtro por cuenta
 async function cargarDepositos() {
-    const datos = await cargarCSV(depositosURL);
+  const datos = await cargarCSV(depositosURL);
+  const tbody = document.querySelector("#tabla-depositos tbody");
+  tbody.innerHTML = "";
 
-    const tbody = document.querySelector("#tabla-depositos tbody");
-    const nombresUnicos = new Set();
+  const numeroCuentaUsuario = usuarioActual ? usuarioActual.numeroCuenta : null;
 
-    tbody.innerHTML = "";
-
-    // Si el usuario está logueado, filtramos los depósitos por su número de cuenta
-    const numeroCuentaUsuario = usuarioActual ? usuarioActual.numeroCuenta : null;
-
-    datos.slice(1).forEach(([nCuenta, Nombre, Monto, fecha, descripción]) => {
-        if (nCuenta && (!numeroCuentaUsuario || nCuenta === numeroCuentaUsuario)) {  // Filtramos por el número de cuenta
-            nombresUnicos.add(nCuenta); // Guardar nombres únicos para el filtro
-
-            const row = document.createElement("tr");
-            row.innerHTML = `
-                <td>${nCuenta}</td>
-                <td>${Nombre}</td>
-                <td>${Monto || ""}</td>
-                <td>${fecha || ""}</td>
-                <td>${descripción}</td>
-            `;
-            tbody.appendChild(row);
-        }
-    });
+  datos.slice(1).forEach(([nCuenta, Nombre, Monto, fecha, descripción]) => {
+    if (nCuenta && (!numeroCuentaUsuario || nCuenta === numeroCuentaUsuario)) {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${nCuenta}</td>
+        <td>${Nombre}</td>
+        <td>${Monto || ""}</td>
+        <td>${fecha || ""}</td>
+        <td>${descripción}</td>
+      `;
+      tbody.appendChild(row);
+    }
+  });
 }
 
-// Inicialización de la tabla correspondiente
+// Inicializar si hay tabla de depósitos
 if (document.getElementById("tabla-depositos")) {
-    cargarDepositos();
+  cargarDepositos();
 }
 
 // Abrir y cerrar el menú lateral
@@ -51,12 +43,69 @@ const menuBtn = document.getElementById("menu-btn");
 const sidebar = document.getElementById("sidebar");
 const closeBtn = document.getElementById("close-btn");
 
-menuBtn.addEventListener("click", () => {
-    sidebar.classList.add("active");
+menuBtn?.addEventListener("click", () => {
+  sidebar.classList.add("active");
 });
 
-closeBtn.addEventListener("click", () => {
-    sidebar.classList.remove("active");
+closeBtn?.addEventListener("click", () => {
+  sidebar.classList.remove("active");
 });
 
+// Alternar pestañas entre "Depositar" y "Retirar"
+const tabButtons = document.querySelectorAll(".tabs button");
+const depositForm = document.getElementById("deposit-form");
+const withdrawForm = document.getElementById("withdraw-form");
 
+tabButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    tabButtons.forEach((btn) => btn.classList.remove("active"));
+    button.classList.add("active");
+
+    if (button.dataset.tab === "depositar") {
+      depositForm.style.display = "flex";
+      withdrawForm.style.display = "none";
+    } else {
+      depositForm.style.display = "none";
+      withdrawForm.style.display = "flex";
+    }
+  });
+});
+
+// Función para enviar formularios y mostrar feedback
+async function enviarFormulario(formulario, urlScript) {
+  const formData = new FormData(formulario);
+  const button = formulario.querySelector("button");
+
+  try {
+    const response = await fetch(urlScript, {
+      method: "POST",
+      body: formData,
+    });
+
+    if (response.ok) {
+      button.classList.add("active-submit");
+      setTimeout(() => {
+        button.classList.remove("active-submit");
+      }, 2000);
+      formulario.reset();
+    } else {
+      alert("Error al enviar el formulario.");
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    alert("Error al enviar el formulario.");
+  }
+}
+
+// Manejar envíos de formularios
+const scriptURL = "https://script.google.com/macros/s/AKfycbyNAA3zGSu5RmgNH2hDU-Q-vUPPtW8ONP4LaB65qI9szarjjM9u0guOMjMhw9OkxZ4H/exec";
+
+document.getElementById("deposit-form")?.addEventListener("submit", function (e) {
+  e.preventDefault();
+  enviarFormulario(this, scriptURL);
+});
+
+document.getElementById("withdraw-form")?.addEventListener("submit", function (e) {
+  e.preventDefault();
+  enviarFormulario(this, scriptURL);
+});
