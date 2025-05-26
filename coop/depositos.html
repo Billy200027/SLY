@@ -7,6 +7,27 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="depositos.css" />
+  <style>
+    .cuentas-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .cuenta {
+      background-color: #f9f9f9;
+      border: 1px solid #ccc;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .cuenta h3 {
+      margin-top: 0;
+      color: #333;
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -31,6 +52,7 @@
     <div class="tabs">
       <button onclick="toggleTab('retirar')">Retirar</button>
       <button onclick="toggleTab('depositar')">Depositar</button>
+      <button onclick="toggleTab('cuentas')">Cuentas</button>
     </div>
 
     <!-- Formulario de Retiro -->
@@ -55,67 +77,95 @@
       </form>
     </div>
 
+    <!-- Sección de Cuentas -->
+    <div id="form-cuentas" style="display:none;">
+      <div class="cuentas-container">
+        <div class="cuenta">
+          <h3>Cuenta 1</h3>
+          <p><strong>Banco:</strong> Be Produbanco</p>
+          <p><strong>Cedula:</strong> 0958927402</p>
+          <p><strong>Tipo de cuenta:</strong>Ahorro</p>
+          <p><strong>N° Cuenta:</strong>18059641287</p>
+        </div>
+        <div class="cuenta">
+          <h3>Cuenta 2</h3>
+          <p><strong>Banco:</strong>Banco Pichincha</p>
+          <p><strong>Cedula:</strong>0958927402</p>
+          <p><strong>Tipo de cuenta:</strong>Ahorro</p>
+          <p><strong>N° Cuenta:</strong>2213714788</p>
+        </div>
+        <div class="cuenta">
+          <h3>Cuenta 3</h3>
+          <p><strong>Banco:</strong>Banco Pacifico</p>
+          <p><strong>Cuenta:</strong>0958927402</p>
+          <p><strong>Tipo de cuenta:</strong>Ahorro</p>
+          <p><strong>N° Cuenta:</strong>1069598029</p>
+        </div>
+      </div>
+    </div>
+
     <div id="response"></div>
 
     <script>
-  function toggleTab(tab) {
-    document.getElementById("form-retiro").style.display = (tab === 'retirar') ? 'block' : 'none';
-    document.getElementById("form-deposito").style.display = (tab === 'depositar') ? 'block' : 'none';
-  }
-
-  document.getElementById("retiroForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const res = await fetch("https://script.google.com/macros/s/AKfycbwOikxjyp0vO81dYB49KtxyCT1dC5GpFJ51xpBs8q2QbsUawxuiQujA2tMJF0oC-Os/exec?action=retiro", {
-      method: "POST",
-      body: formData
-    });
-    document.getElementById("response").innerText = await res.text();
-    e.target.reset();
-  });
-
-  document.getElementById("depositoForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const cuenta = e.target.cuenta.value;
-    const nombre = e.target.nombre.value;
-    const archivo = e.target.file.files[0];
-
-    if (!archivo) {
-      alert("Debes subir una imagen del comprobante.");
-      return;
-    }
-
-    const reader = new FileReader();
-    reader.onload = async function () {
-      const base64 = reader.result; // Incluye el encabezado (data:image/...)
-
-      const body = new URLSearchParams();
-      body.append("action", "deposito");
-      body.append("cuenta", cuenta);
-      body.append("nombre", nombre);
-      body.append("file", base64);
-
-      try {
-        const res = await fetch("https://script.google.com/macros/s/AKfycbwOikxjyp0vO81dYB49KtxyCT1dC5GpFJ51xpBs8q2QbsUawxuiQujA2tMJF0oC-Os/exec", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-          },
-          body: body.toString()
-        });
-
-        const text = await res.text();
-        document.getElementById("response").innerText = text;
-        e.target.reset();
-      } catch (err) {
-        console.error(err);
-        alert("Hubo un error al enviar el depósito.");
+      function toggleTab(tab) {
+        document.getElementById("form-retiro").style.display = (tab === 'retirar') ? 'block' : 'none';
+        document.getElementById("form-deposito").style.display = (tab === 'depositar') ? 'block' : 'none';
+        document.getElementById("form-cuentas").style.display = (tab === 'cuentas') ? 'block' : 'none';
       }
-    };
 
-    reader.readAsDataURL(archivo); // Convierte a base64 (con encabezado)
-  });
-</script>
+      document.getElementById("retiroForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const res = await fetch("https://script.google.com/macros/s/AKfycbwOikxjyp0vO81dYB49KtxyCT1dC5GpFJ51xpBs8q2QbsUawxuiQujA2tMJF0oC-Os/exec?action=retiro", {
+          method: "POST",
+          body: formData
+        });
+        document.getElementById("response").innerText = await res.text();
+        e.target.reset();
+      });
+
+      document.getElementById("depositoForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const cuenta = e.target.cuenta.value;
+        const nombre = e.target.nombre.value;
+        const archivo = e.target.file.files[0];
+
+        if (!archivo) {
+          alert("Debes subir una imagen del comprobante.");
+          return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = async function () {
+          const base64 = reader.result.split(',')[1];
+          const payload = {
+            action: "deposito",
+            cuenta: cuenta,
+            nombre: nombre,
+            filename: archivo.name,
+            mimeType: archivo.type,
+            base64: base64
+          };
+
+          try {
+            const res = await fetch("https://script.google.com/macros/s/AKfycbwOikxjyp0vO81dYB49KtxyCT1dC5GpFJ51xpBs8q2QbsUawxuiQujA2tMJF0oC-Os/exec", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(payload)
+            });
+
+            const text = await res.text();
+            document.getElementById("response").innerText = text;
+            e.target.reset();
+          } catch (err) {
+            console.error(err);
+            alert("Hubo un error al enviar el depósito.");
+          }
+        };
+
+        reader.readAsDataURL(archivo);
+      });
+    </script>
 
     <p class="p">
       La fecha reciente se mostrará al comienzo. Para mayor información sobre cualquier tipo de información respecto a sus depósitos a su cuenta, envíe un mensaje al WhatsApp. Recuerde que los depósitos pueden tardar un promedio de hasta 3h en ser agregados.
