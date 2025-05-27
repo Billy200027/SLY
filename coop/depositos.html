@@ -77,7 +77,7 @@
   function toggleTab(tab) {
     document.getElementById("form-retiro").style.display = (tab === 'retirar') ? 'block' : 'none';
     document.getElementById("form-deposito").style.display = (tab === 'depositar') ? 'block' : 'none';
-    document.getElementById("cuentas").style.display = (tab === 'cuentas') ? 'block' : 'none';
+    document.getElementById("cuentas").style.display = (tab === 'cuentas') ? 'flex' : 'none';
   }
 
   document.getElementById("retiroForm").addEventListener("submit", async (e) => {
