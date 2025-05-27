@@ -317,5 +317,6 @@ form button.active-submit {
 
 .cuentas {
   display: flex;
-  background-color: #189
+  background-color: #189;
+  justify-content: center;
 }
