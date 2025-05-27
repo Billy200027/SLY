@@ -319,7 +319,7 @@ form button.active-submit {
 #cuentas {
   display: flex;
   flex-direction: column;
-  background: #48e;
+  background: rgba(60, 176, 243, 0.377);
   color: white;
   padding: 20px;
   gap: 10px;
