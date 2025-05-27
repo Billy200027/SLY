@@ -315,11 +315,3 @@ form button.active-submit {
   color: #fff !important;
 }
 
-#cuentas {
-  display: flex;
-  flex-direction: column;
-  background: #c55b5b;
-  color: white;
-
-}
-
