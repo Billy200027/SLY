@@ -314,4 +314,17 @@ form button.active-submit {
   background-color: #189 !important;
   color: #fff !important;
 }
+#cuentas {
+  display: flex;
+  flex-direction: column;
+  background: #c55b5b;
+  color: white;
+  padding: 20px;
+  gap: 10px;
+  justify-content: center;
+  align-items: flex-start;
+  border-radius: 10px;
+  max-width: 400px;
+  margin: 20px auto;
+}
 
