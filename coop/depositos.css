@@ -320,7 +320,7 @@ form button.active-submit {
   display: flex;
   flex-direction: column;
   background: #c55b5b;
-  color: white;
+  color: black;
   padding: 20px;
   gap: 10px;
   justify-content: center;
