@@ -314,3 +314,8 @@ form button.active-submit {
   background-color: #189 !important;
   color: #fff !important;
 }
+
+.cuentas {
+  display: flex;
+  background-color: #189
+}
