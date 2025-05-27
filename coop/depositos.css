@@ -317,7 +317,7 @@ form button.active-submit {
 
 .cuentas {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   background: #c55b5b;
   justify-content: center;
 
